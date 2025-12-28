@@ -13,119 +13,28 @@ st.set_page_config(
 # --- 2. GHOST MODE CSS (NÜKLEER TEMİZLİK) ---
 st.markdown("""
     <style>
-    /* 1. ANA GÖVDE RENKLERİ */
-    .stApp {
-        background-color: #050505;
-        color: #E0E0E0;
-    }
+        /* 1. Üstteki Menüyü ve Çizgiyi Kökten Gizle */
+        header {visibility: hidden !important; height: 0px !important;}
+        
+        /* 2. Alttaki 'Hosted by Streamlit' ve Footer'ı Yok Et */
+        footer {visibility: hidden !important; height: 0px !important;}
+        
+        /* 3. Ana İçeriği Yukarı İt (Boşluk Kalmasın) */
+        .block-container {
+            padding-top: 0rem !important;
+            padding-bottom: 0rem !important;
+        }
+        
+        /* 4. Sağ Üstteki Seçenekler Menüsü */
+        div[data-testid="stToolbar"] {
+            visibility: hidden !important;
+            display: none !important;
+        }
 
-    /* 2. YÖNETİM VE MENÜLERİ GİZLEME */
-    /* Sağ üstteki Hamburger Menü ve Toolbar */
-    [data-testid="stToolbar"] {
-        visibility: hidden !important;
-        display: none !important;
-    }
-    
-    /* "Manage App" ve Deploy butonları */
-    .stDeployButton {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    
-    /* Sağ üstteki süslemeler */
-    [data-testid="stDecoration"] {
-        display: none !important;
-        visibility: hidden !important;
-    }
-    
-    /* Header (Başlık Çubuğu) */
-    header {
-        visibility: hidden !important;
-        display: none !important;
-    }
-    
-    /* 3. FOOTER VE "HOSTED BY" YAZILARI (SUİKAST TİMİ) */
-    footer {
-        visibility: hidden !important;
-        display: none !important;
-    }
-    
-    /* Alt kısımdaki "Hosted with Streamlit" rozeti */
-    .viewerBadge_container__1QSob {
-        display: none !important;
-    }
-    
-    /* Eğer iframe içindeyse */
-    iframe[title="streamlit_viewer_badge"] {
-        display: none !important;
-    }
-
-    /* 4. FORM ELEMANLARI TASARIMI */
-    .stTextInput input, .stNumberInput input, .stDateInput input, .stTimeInput input, .stSelectbox div[data-baseweb="select"] {
-        background-color: #121212 !important;
-        color: #fff !important;
-        border: 1px solid #333;
-        border-radius: 4px;
-    }
-    
-    /* Butonlar */
-    div.stButton > button {
-        background-color: #700000;
-        color: white;
-        border: none;
-        border-radius: 2px;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-    div.stButton > button:hover {
-        background-color: #a00000;
-    }
-    
-    /* Slider Rengi */
-    div.stSlider > div[data-baseweb = "slider"] > div > div > div[role="slider"]{
-        background-color: #8B0000 !important;
-    }
+        /* 5. Görüntüleyici Rozeti (Varsa) */
+        .viewerBadge_container__1QSob {display: none !important;}
     </style>
-    """, unsafe_allow_html=True)
-    
-    /* 4. SLIDER (KIRMIZI VURGU) */
-    div.stSlider > div[data-baseweb = "slider"] > div > div > div[role="slider"]{
-        background-color: #8B0000 !important;
-    }
-    div.stSlider > div[data-baseweb="slider"] > div > div {
-        background-color: #333 !important;
-    }
-
-    /* 5. BUTON (OTORİTER VE GÜÇLÜ) */
-    div.stButton > button {
-        background-color: #700000;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 16px;
-        letter-spacing: 1px;
-        width: 100%;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: 0.3s;
-        border-radius: 2px;
-    }
-    div.stButton > button:hover {
-        background-color: #a00000;
-        box-shadow: 0px 0px 15px rgba(160, 0, 0, 0.4);
-    }
-    
-    /* 6. TYPOGRAPHY */
-    h1 { color: #fff; text-align: center; font-family: 'Helvetica', sans-serif; letter-spacing: 3px; font-weight: 800; }
-    h2 { color: #8B0000; font-size: 18px; border-bottom: 1px solid #222; padding-bottom: 5px; margin-top: 30px; letter-spacing: 1px;}
-    
-    /* Expander Başlık Rengi */
-    .streamlit-expanderHeader {
-        background-color: #0F0F0F;
-        color: #aaa;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # --- 3. BAŞLIK VE LOGO ---
 st.markdown("<br>", unsafe_allow_html=True)
