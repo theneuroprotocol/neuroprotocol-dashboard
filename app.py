@@ -10,48 +10,83 @@ st.set_page_config(
 )
 
 # --- 2. GHOST MODE CSS (AGRESİF TEMİZLİK) ---
+# --- 2. GHOST MODE CSS (NÜKLEER TEMİZLİK) ---
 st.markdown("""
     <style>
-    /* 1. ANA GÖVDE VE RENKLER */
+    /* 1. ANA GÖVDE RENKLERİ */
     .stApp {
         background-color: #050505;
         color: #E0E0E0;
     }
 
-    /* 2. STREAMLIT ARAYÜZÜNÜ YOK ETME (HAYATİ KISIM) */
-    /* Sağ üstteki "Manage App" ve Toolbar'ı gizle */
+    /* 2. YÖNETİM VE MENÜLERİ GİZLEME */
+    /* Sağ üstteki Hamburger Menü ve Toolbar */
     [data-testid="stToolbar"] {
         visibility: hidden !important;
         display: none !important;
     }
-    /* Sayfa başındaki renkli şerit ve header'ı gizle */
-    [data-testid="stHeader"] {
+    
+    /* "Manage App" ve Deploy butonları */
+    .stDeployButton {
+        display: none !important;
         visibility: hidden !important;
-        background-color: transparent !important;
     }
-    /* Footer (Made with Streamlit) yazısını gizle */
+    
+    /* Sağ üstteki süslemeler */
+    [data-testid="stDecoration"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Header (Başlık Çubuğu) */
+    header {
+        visibility: hidden !important;
+        display: none !important;
+    }
+    
+    /* 3. FOOTER VE "HOSTED BY" YAZILARI (SUİKAST TİMİ) */
     footer {
         visibility: hidden !important;
         display: none !important;
     }
-    /* Sağ üst köşedeki dekorasyonları gizle */
-    [data-testid="stDecoration"] {
-        visibility: hidden !important;
+    
+    /* Alt kısımdaki "Hosted with Streamlit" rozeti */
+    .viewerBadge_container__1QSob {
         display: none !important;
     }
-    /* Hamburger menüyü (üç çizgi) gizle */
-    #MainMenu {
-        visibility: hidden !important;
+    
+    /* Eğer iframe içindeyse */
+    iframe[title="streamlit_viewer_badge"] {
         display: none !important;
     }
 
-    /* 3. INPUT ALANLARI (MAT VE KESKİN) */
+    /* 4. FORM ELEMANLARI TASARIMI */
     .stTextInput input, .stNumberInput input, .stDateInput input, .stTimeInput input, .stSelectbox div[data-baseweb="select"] {
         background-color: #121212 !important;
         color: #fff !important;
         border: 1px solid #333;
         border-radius: 4px;
     }
+    
+    /* Butonlar */
+    div.stButton > button {
+        background-color: #700000;
+        color: white;
+        border: none;
+        border-radius: 2px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    div.stButton > button:hover {
+        background-color: #a00000;
+    }
+    
+    /* Slider Rengi */
+    div.stSlider > div[data-baseweb = "slider"] > div > div > div[role="slider"]{
+        background-color: #8B0000 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     /* 4. SLIDER (KIRMIZI VURGU) */
     div.stSlider > div[data-baseweb = "slider"] > div > div > div[role="slider"]{
