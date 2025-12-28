@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEUROPROTOCOL | INTELLIGENCE SYSTEM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #0f0f0f;
+      --matte: #151515;
+      --stroke: #242424;
+      --soft: #333;
+      --text: #e0e0e0;
+      --muted: #9a9a9a;
+      --accent: #8b0000;
+      --accent-strong: #700000;
+      --accent-hover: #a00000;
+      --glow: rgba(139, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: radial-gradient(circle at 25% 20%, rgba(139,0,0,0.05), transparent 28%),
+                  radial-gradient(circle at 80% 0%, rgba(139,0,0,0.08), transparent 26%),
+                  var(--bg);
+      color: var(--text);
+      letter-spacing: 0.02em;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .shell {
+      width: min(1100px, 100%);
+      background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0))
+                  , var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -120px 35% auto auto;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, var(--glow), transparent 60%);
+      filter: blur(40px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      padding: 36px 40px 44px;
+    }
+
+    @media (max-width: 960px) {
+      body { padding: 20px; }
+      .grid { grid-template-columns: 1fr; padding: 28px 24px 36px; }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--stroke);
+      padding-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: clamp(20px, 2vw, 24px);
+      letter-spacing: 0.18em;
+      color: #f5f5f5;
+    }
+
+    .title-block p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(139,0,0,0.16), rgba(255,255,255,0));
+      color: #f6e8e8;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.15), rgba(255,255,255,0)),
+                  #101010;
+      border: 1px solid var(--stroke);
+      display: grid;
+      place-items: center;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 8px 18px rgba(0,0,0,0.45);
+    }
+
+    .logo svg { width: 56px; height: 56px; }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    select, input[type="number"], textarea {
+      width: 100%;
+      background: var(--matte);
+      border: 1px solid var(--soft);
+      color: #f5f5f5;
+      padding: 14px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+      outline: none;
+    }
+
+    textarea { resize: vertical; min-height: 120px; }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(139,0,0,0.5), 0 10px 24px rgba(0,0,0,0.55);
+      transform: translateY(-1px);
+    }
+
+    .muted-helper { color: var(--muted); font-size: 12px; }
+
+    .submit-zone {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+      position: relative;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background: var(--accent-strong);
+      color: #fff;
+      border: none;
+      padding: 18px;
+      border-radius: 10px;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      font-size: 14px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+      box-shadow: 0 12px 35px rgba(139,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    button[type="submit"]:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    button[type="submit"]:active { transform: translateY(0); }
+    button[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .panel {
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 16px 16px 14px;
+      background: linear-gradient(160deg, rgba(255,255,255,0.015), rgba(255,255,255,0)), #0b0b0b;
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: #f3f3f3;
+      text-transform: uppercase;
+    }
+
+    .meta-grid { display: grid; gap: 10px; }
+    .meta-item { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
+    .meta-value { color: #f5f5f5; font-weight: 700; letter-spacing: 0.04em; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .modal {
+      background: #0d0d0d;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 28px 26px;
+      width: min(420px, 90%);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.65);
+      text-align: center;
+      position: relative;
+    }
+    .modal::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(120deg, rgba(139,0,0,0.5), rgba(255,255,255,0.05));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .modal h4 { margin: 8px 0 6px; letter-spacing: 0.08em; }
+    .modal p { margin: 4px 0 0; color: var(--muted); }
+    .modal .icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      background: radial-gradient(circle at 50% 45%, rgba(139,0,0,0.25), rgba(139,0,0,0));
+      border: 1px solid var(--accent);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 32px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .modal button {
+      margin-top: 16px;
+      background: var(--accent-strong);
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .modal button:hover { background: var(--accent-hover); }
+
+    .status-line {
+      border-top: 1px dashed var(--stroke);
+      margin-top: 12px;
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="grid">
+      <header>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="60" r="36" stroke="#e9e9e9" stroke-width="5" fill="#101010" />
+              <g stroke="#e9e9e9" stroke-width="5" stroke-linecap="round">
+                <path d="M60 28c4 4 5 9 4 14-1 6-6 12-14 14" />
+                <path d="M60 28c-2 6-1 10 2 15 3 5 9 9 18 9" />
+                <path d="M41 44c6 2 9 6 10 11 1 6-1 13-8 18" />
+                <path d="M78 44c-6 2-9 6-10 11-1 6 1 13 8 18" />
+                <path d="M46 76c5-1 10 1 14 4 5 4 8 11 6 18" />
+                <path d="M74 76c-5-1-10 1-14 4-5 4-8 11-6 18" />
+              </g>
+              <circle cx="60" cy="60" r="6" fill="#e9e9e9" />
+              <g stroke="#e9e9e9" stroke-width="4" stroke-linecap="round">
+                <path d="M60 15v12" />
+                <path d="M23 60h12" />
+                <path d="M85 60h12" />
+                <path d="M60 93v12" />
+              </g>
+            </svg>
+          </div>
+          <div class="title-block">
+            <h1>NEUROPROTOCOL | INTELLIGENCE SYSTEM</h1>
+            <p>Darkline OPS · Adaptive Cognitive Intake · Secure Uplink</p>
+          </div>
+        </div>
+        <div class="badge">LIVE LINK · AES-256 ENCRYPTED</div>
+      </header>
+
+      <form id="intel-form">
+        <div class="field">
+          <label for="Ogrenci">Öğrenci</label>
+          <select name="Ogrenci" id="Ogrenci" required>
+            <option value="" disabled selected>Seçiniz</option>
+            <option>Ahmet Yılmaz</option>
+            <option>Zeynep Kaya</option>
+            <option>Selin Demir</option>
+            <option>Caner Erkin</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Odak_Suresi">Odaklanma Süresi (saat)</label>
+          <input type="number" step="0.1" name="Odak_Suresi" id="Odak_Suresi" placeholder="Örn: 4.5 Saat" required />
+          <div class="muted-helper">Stratejik blokların toplam süresi.</div>
+        </div>
+
+        <div class="field">
+          <label for="Uyku_Suresi">Uyku Süresi (saat)</label>
+          <input type="number" step="0.1" name="Uyku_Suresi" id="Uyku_Suresi" placeholder="Örn: 7.0 Saat" required />
+          <div class="muted-helper">Son 24 saatlik uyku toplamı.</div>
+        </div>
+
+        <div class="field" style="grid-column: 1 / -1;">
+          <label for="Gunluk_Not">Günlük Operasyon Notu</label>
+          <textarea name="Gunluk_Not" id="Gunluk_Not" placeholder="Bugünkü engeller ve stratejik analiz..." required></textarea>
+        </div>
+
+        <div class="submit-zone">
+          <button type="submit" id="submit-btn">RAPORU SİSTEME İŞLE</button>
+        </div>
+      </form>
+
+      <div class="panel">
+        <h3>Operasyon Telemetrisi</h3>
+        <div class="meta-grid">
+          <div class="meta-item"><span>Bağlantı</span><span class="meta-value">Şifreli</span></div>
+          <div class="meta-item"><span>Aktarım Protokolü</span><span class="meta-value">TLS 1.3</span></div>
+          <div class="meta-item"><span>Rapor Formatı</span><span class="meta-value">JSON · FormData</span></div>
+          <div class="meta-item"><span>Durum</span><span class="meta-value" id="status-text">Bekliyor</span></div>
+        </div>
+        <div class="status-line">Gönderim sonrası özet ve uyarılar bu panelde güncellenecek.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal" aria-live="polite">
+      <div class="icon">✔</div>
+      <h4>Veri NeuroProtocol Ana Sunucusuna İşlendi.</h4>
+      <p>Güvenli aktarım tamamlandı. Operasyon kaydı güncellendi.</p>
+      <button type="button" id="close-modal">Devam Et</button>
+    </div>
+  </div>
+
+  <script>
+    const scriptURL = ""; // Sonradan eklenecek
+    const form = document.getElementById('intel-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusText = document.getElementById('status-text');
+    const modal = document.getElementById('modal-backdrop');
+    const closeModal = document.getElementById('close-modal');
+
+    const toggleModal = (state) => {
+      modal.style.display = state ? 'flex' : 'none';
+    };
+
+    const resetButton = () => {
+      submitBtn.textContent = 'RAPORU SİSTEME İŞLE';
+      submitBtn.disabled = false;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.textContent = 'Şifreleniyor & Gönderiliyor...';
+      submitBtn.disabled = true;
+      statusText.textContent = 'Gönderiliyor';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(scriptURL, { method: 'POST', body: formData });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        statusText.textContent = 'Başarılı';
+        toggleModal(true);
+        form.reset();
+      } catch (err) {
+        statusText.textContent = 'Hata';
+        alert('Gönderim sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+      } finally {
+        resetButton();
+      }
+    });
+
+    closeModal.addEventListener('click', () => toggleModal(false));
+    modal.addEventListener('click', (e) => { if (e.target === modal) toggleModal(false); });
+  </script>
+</body>
+</html>
